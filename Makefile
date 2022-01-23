@@ -42,6 +42,7 @@ buildimg:
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BOOTEFI) ::/EFI/BOOT
 	mcopy -i $(BUILDDIR)/$(OSNAME).img startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-ext-light16.psf ::
 
 makeall:
 	@echo '|===Welcome to the AderinaOS Make!===|'
