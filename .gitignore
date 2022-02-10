@@ -1,3 +1,4 @@
 *.bak
 /lib/
-/bin/
+/bin/*.img
+/bin/*.elf
