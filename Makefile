@@ -20,6 +20,8 @@ SRC = $(call rwildcard,$(SRCDIR),*.c)
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 DIRS = $(wildcard $(SRCDIR)/*)
 
+WSLENV ?= notwsl
+
 ifeq ($(OS),Windows_NT)
 	PLATFORM := Windows
 else
@@ -29,18 +31,22 @@ endif
 os:
 ifeq ($(PLATFORM),Windows)
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-	@echo oki doki amd64
+	@echo $(PLATFORM) $(PROCESSOR_ARCHITECTURE)
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-	@echo oki doki x86
+	@echo $(PLATFORM) $(PROCESSOR_ARCHITECTURE)
 endif
+else
+ifndef $(WSLENV)
+	@echo $(PLATFORM) $(PROCESSOR_ARCHITECTURE) $(WSLENV)
 else
 ifeq ($(PLATFORM), Linux)
 ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-	@echo oki doki amd64 $(PLATFORM)
+	@echo $(PLATFORM) $(PROCESSOR_ARCHITECTURE)
 endif
 ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-	@echo oki doki x86 $(PLATFORM)
+	@echo $(PLATFORM) $(PROCESSOR_ARCHITECTURE)
+endif
 endif
 endif
 endif
@@ -64,8 +70,9 @@ buildimg:
 ifeq ($(PLATFORM),Windows)
 	@echo not supported at this version but you can use WSL(debian) Version 2 Good Luck. 
 else
-ifeq ($(PLATFORM),Linux)
 	dd if=/dev/zero of=$(BUILDDIR)/$(OSNAME).img bs=512 count=93750
+endif
+ifndef $(WSLENV)
 	mformat -i $(BUILDDIR)/$(OSNAME).img -f 1440 ::
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/BOOT
@@ -73,9 +80,7 @@ ifeq ($(PLATFORM),Linux)
 	mcopy -i $(BUILDDIR)/$(OSNAME).img startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-ext-light16.psf ::
-endif
-ifeq ($(PLATFORM),Arch)
-	dd if=/dev/zero of=$(BUILDDIR)/$(OSNAME).img bs=512 count=93750
+else
 	mkfs.fat $(BUILDDIR)/$(OSNAME).img
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI
 	mmd -i $(BUILDDIR)/$(OSNAME).img ::/EFI/BOOT
@@ -84,7 +89,7 @@ ifeq ($(PLATFORM),Arch)
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/kernel.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-ext-light16.psf ::
 endif
-endif
+
 makeall:
 	@echo '|===Welcome to the AderinaOS Make!===|'
 	@echo '|===Create Bootloader:===|'
