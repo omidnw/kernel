@@ -4,6 +4,5 @@
 typedef unsigned long long size_t;
 typedef unsigned int uniinteger;
 typedef unsigned long unilong;
-typedef char* string;
 
 #endif

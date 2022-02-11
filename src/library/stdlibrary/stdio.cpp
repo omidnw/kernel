@@ -5,7 +5,7 @@ Point CursorPosition;
 void putChar(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color, char character, uniinteger xOffset, uniinteger yOffset)
 {
 	uniinteger* pixelPointer = (uniinteger*)framebuffer->BaseAddress;
-	char* fontpointer = psfone_font->glyphBuffer + (character * psfone_font->psfone_HEADER->charactersize);
+	char* fontpointer = (char*)psfone_font->glyphBuffer + (character * psfone_font->psfone_HEADER->charactersize);
 	for(unilong y = yOffset; y < yOffset + 16; y++)
 	{
 		for(unilong x = xOffset; x < xOffset + 8; x++)
@@ -19,7 +19,7 @@ void putChar(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger colo
 	}
 }
 
-void Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color, string value)
+void Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color, const char* value)
 {
 	while(*value != 0)
 	{

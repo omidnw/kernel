@@ -2,7 +2,7 @@ OSNAME = AderinaOS
 
 GNUEFI = ../gnu-efi
 OVMFDIR = ../OVMFbin
-CC = gcc
+CC = g++
 LDS = kernel.ld
 LD = ld
 
@@ -16,13 +16,13 @@ BOOTEFI := $(GNUEFI)/x86_64/bootloader/main.efi
 
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 
-SRC = $(call rwildcard,$(SRCDIR),*.c)          
-OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
+SRC = $(call rwildcard,$(SRCDIR),*.cpp)          
+OBJS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRC))
 DIRS = $(wildcard $(SRCDIR)/*)
 
 WSLENV ?= notwsl
 
-ifeq ($(OS),Windows_NT)
+ifeq ($(OS),Windows)
 	PLATFORM := Windows
 else
 	PLATFORM := $(shell uname)
@@ -54,7 +54,7 @@ endif
 
 kernel: $(OBJS) # link
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $^ -o $@
 

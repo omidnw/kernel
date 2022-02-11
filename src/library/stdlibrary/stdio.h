@@ -5,6 +5,6 @@
 
 extern Point CursorPosition;
 extern void putChar(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color, char character, uniinteger xOffset, uniinteger yOffset);
-extern void Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color, string value);
+extern void Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, uniinteger color,  const char* value);
 
 #endif

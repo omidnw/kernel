@@ -1,6 +1,6 @@
 #include "library/stdlibrary/stdio.h"
 
-void myne(FrameBuffer* MainGOPBuffer, PSFone_Font* psfone_font){
+extern "C" void myne(FrameBuffer* MainGOPBuffer, PSFone_Font* psfone_font){
 
         // unsigned int y = 50;
 	// unsigned int BBP = 4; // Bytes per pixel;
