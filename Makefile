@@ -1,6 +1,7 @@
 OSNAME = AderinaOS
 
 GNUEFI = ../gnu-efi
+KERNELDIR = ../kernel
 OVMFDIR = ../OVMFbin
 CC = g++
 LDS = kernel.ld
@@ -50,7 +51,6 @@ endif
 endif
 endif
 endif
-	
 
 kernel: $(OBJS) # link
 
@@ -91,12 +91,12 @@ endif
 endif
 
 makeall:
-	@echo '|===Welcome to the AderinaOS Make!===|'
+	@echo '|===Welcome to the $(OSNAME) Make!===|'
 	@echo '|===Create Bootloader:===|'
-	cd ../gnu-efi/ && make bootloader
+	cd $(GNUEFI) && make bootloader
 	@echo '|===BootLoader Created!===|'
 	@echo '|===Create Kernel:===|'
-	cd ../kernel/
+	cd $(KERNELDIR)
 	make kernel
 	@echo '|===Linking please wait!===|'
 	make link
