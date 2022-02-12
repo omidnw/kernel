@@ -8,7 +8,7 @@ LDS = kernel.ld
 LD = ld
 
 CFLAGS = -ffreestanding -fshort-wchar
-LDFLAGS = -T $(LDS) -static -Bsymbolic -nostdlib
+LDFLAGS = -T $(LDS) -static -Bsymbolic
 
 SRCDIR := src
 OBJDIR := lib
