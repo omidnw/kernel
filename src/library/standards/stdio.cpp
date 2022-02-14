@@ -1,32 +1,32 @@
 #include "stdio.h"
 
-void StandardIO::putChar(FrameBuffer* framebuffer, PSFone_Font* psfone_font, unsignedinteger color, char character, unsignedinteger xOffset, unsignedinteger yOffset)
+void System::StandardIO::putChar(char character, unsignedinteger xOffset, unsignedinteger yOffset)
 {
-	unsignedinteger* pixelPointer = (unsignedinteger*)framebuffer->BaseAddress;
-	char* fontpointer = (char*)psfone_font->glyphBuffer + (character * psfone_font->psfone_HEADER->charactersize);
+	unsignedinteger* pixelPointer = (unsignedinteger*)defaultvalue.framebuffer->BaseAddress;
+	char* fontpointer = (char*)defaultvalue.psfone_font->glyphBuffer + (character * defaultvalue.psfone_font->psfone_HEADER->charactersize);
 	for(unsignedlong y = yOffset; y < yOffset + 16; y++)
 	{
 		for(unsignedlong x = xOffset; x < xOffset + 8; x++)
 		{
 			if((*fontpointer & (0b10000000 >> (x - xOffset))) > 0)
 			{
-				*(unsignedinteger*)(pixelPointer + x + (y * framebuffer->PixelsPerScanLine)) = color;
+				*(unsignedinteger*)(pixelPointer + x + (y * defaultvalue.framebuffer->PixelsPerScanLine)) = defaultvalue.color;
 			}
 		}
 		fontpointer++;
 	}
 }
 
-void StandardIO::Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, unsignedinteger color, const char* value)
+void System::StandardIO::Print(const char* value)
 {
 	while(*value != 0)
 	{
-		putChar(framebuffer, psfone_font, color, *value, CursorPosition.X, CursorPosition.Y);
-		CursorPosition.X += 8;
-		if(CursorPosition.X + 8 > framebuffer->HorizontalResolution)
+		putChar(*value, defaultvalue.CursorPosition.X, defaultvalue.CursorPosition.Y);
+		defaultvalue.CursorPosition.X += 8;
+		if(defaultvalue.CursorPosition.X + 8 > defaultvalue.framebuffer->HorizontalResolution)
 		{
-			CursorPosition.X = 0;
-			CursorPosition.Y += 16;
+			defaultvalue.CursorPosition.X = 0;
+			defaultvalue.CursorPosition.Y += 16;
 		}
 		value++;
 	}

@@ -4,12 +4,13 @@
 
 #include "../structures/standardiostructure.h"
 
-
-class StandardIO{
-    public:
-    Point CursorPosition;
-    void putChar(FrameBuffer* framebuffer, PSFone_Font* psfone_font, unsignedinteger color, char character, unsignedinteger xOffset, unsignedinteger yOffset);
-    void Print(FrameBuffer* framebuffer, PSFone_Font* psfone_font, unsignedinteger color,  const char* value);
-};
+namespace System{
+    class StandardIO{
+        public:
+            StandardIODV defaultvalue;
+            void putChar(char character, unsignedinteger xOffset, unsignedinteger yOffset);
+            void Print(const char* value);
+    };
+}
 
 #endif

@@ -33,6 +33,13 @@ struct Point{
 	unsignedinteger Y;
 };
 
+struct StandardIODV{
+	struct FrameBuffer* framebuffer;
+	struct PSFone_Font* psfone_font;
+	unsignedinteger color;
+	struct Point CursorPosition;
+};
+
 // finish
 
 #endif

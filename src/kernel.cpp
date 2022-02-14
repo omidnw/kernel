@@ -1,6 +1,6 @@
 #include "library/standards/stdio.h"
 
-using namespace std;
+using namespace System;
 
 extern "C" void myne(FrameBuffer* MainGOPBuffer, PSFone_Font* psfone_font){
 
@@ -18,7 +18,8 @@ extern "C" void myne(FrameBuffer* MainGOPBuffer, PSFone_Font* psfone_font){
 	// 	*(unsigned int*)(x + (y * MainGOPBuffer->PixelsPerScanLine * BBP) + MainGOPBuffer->BaseAddress)= 0xffffffff; // this address settings set all of the channels to 1
 	// }
 	StandardIO SYSconsole;
-	SYSconsole.CursorPosition={0,0};
+	SYSconsole.defaultvalue={MainGOPBuffer, psfone_font, 0xffffffff, {0, 0}};
+	// SYSconsole.defaultvalue=(MainGOPBuffer, psfone_font, 0, 0, 0xffffffff);
 	// for(int test = 0; test < 50; test++) // test overflow print line just uncomment this line and add tab before the Print function.
-	SYSconsole.Print(MainGOPBuffer, psfone_font, 0xffffffff, "Hello, world!");
+	SYSconsole.Print("Hallo, Welt!");
 }
