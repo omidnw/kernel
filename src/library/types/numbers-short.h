@@ -4,7 +4,11 @@
 
 #include "numbers.h"
 
+#ifndef uniint
 #define uniint unsignedinteger
+#endif
+#ifndef uniint
 #define unilong unsignedlong
+#endif
 
 #endif

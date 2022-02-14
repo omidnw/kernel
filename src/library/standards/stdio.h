@@ -1,8 +1,9 @@
-#include "../structures/standardiostructure.h"
-
 #ifndef ADERINA_LIBRARY_STANDARD_INPUT_OUTPUT
 #define ADERINA_LIBRARY_STANDARD_INPUT_OUTPUT
 #pragma once
+
+#include "../structures/standardiostructure.h"
+
 
 class StandardIO{
     public:

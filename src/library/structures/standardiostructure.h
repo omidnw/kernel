@@ -2,6 +2,7 @@
 #define ADERINA_LIBRARY_STANDARDIO_STRUCTURE
 #pragma once
 
+#include <stddef.h>
 #include "../types/numbers.h"
 #include "../types/strings.h"
 

@@ -1,5 +1,7 @@
 #include "library/standards/stdio.h"
 
+using namespace std;
+
 extern "C" void myne(FrameBuffer* MainGOPBuffer, PSFone_Font* psfone_font){
 
     // unsigned int y = 50;
